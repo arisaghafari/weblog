@@ -1,5 +1,14 @@
 from django.shortcuts import render
-from django.http import HttpResponse, JsonResponse
+from .models import Article
 
 def home(request):
-    return render(request, "blog/home.html")
+    context = {
+        "articles" : Article.objects.filter(status="p").order_by("-publish")[:5]
+    }
+    return render(request, "blog/home.html", context)
+
+def detailArticle(request, slug):
+    context = {
+        "article" : Article.objects.get(slug = slug)
+    }
+    return render(request, "blog/detailArticle.html", context)
