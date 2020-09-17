@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from extensions.utils import jalali_converter
 
 class Article(models.Model):
     STATU_CHOICES = (
@@ -18,5 +19,10 @@ class Article(models.Model):
     class Meta:
         verbose_name = "مقاله"
         verbose_name_plural = "مقالات"
+
+    def jpublish(self):
+        return jalali_converter(self.publish)
+    jpublish.short_description = "زمان انتشار(جلالی)"
+
     def __str__(self):
         return self.title

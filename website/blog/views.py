@@ -9,6 +9,6 @@ def home(request):
 
 def detailArticle(request, slug):
     context = {
-        "article" : get_object_or_404(Article, slug, status = "p")
+        "article" : get_object_or_404(Article, slug = slug, status="p")
     }
     return render(request, "blog/detailArticle.html", context)
