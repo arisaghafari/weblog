@@ -1,27 +1,45 @@
-<!DOCTYPE html>
-<html>
-    <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>اگهی ها</title>
-        <style>
-        .center{
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        .textCenter {
-            text-align: center;
-        }
-        </style>
-    </head>
-    <body>
-        {% for article in articles %}
-            <article class="textCenter">
-                <h1><a href="{% url 'blog:detailArticle' article.slug %}">{{ article.title }}</a></h1>
-                <img src="{{ article.thumbnail.url }}" alt = "{{article.title}}" class="center" width="300px">
-                <p>{{ article.description }}</p>
-                <small>{{ article.publish }}</small>
-            </article>
-        {% endfor %}
-    </body>
-</html>
+{% extends 'blog/base.html' %}
+{% load static %}
+{% block main %}
+
+    <!-- Page Header -->
+  <header class="masthead" style="background-image: url('{% static 'blog/img/home-bg.jpg' %}')">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="site-heading">
+            <h1>اوریفلیم پریسا</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+<!-- Main Content -->
+<div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+          {% for article in articles %}
+              <div class="post-preview">
+                <a href="{% url 'blog:detailArticle' article.slug %}">
+                    <h2 class="post-title">
+                     {{ article.title }}
+                    </h2>
+                    <h3 class="post-subtitle">
+                     {{ article.description | truncatewords:30}}
+                    </h3>
+                </a>
+                <p class="post-meta">Posted by arisa
+                {{ article.publish }}</p>
+              </div>
+            <hr>
+          {% endfor %}
+        <!-- Pager -->
+        <div class="clearfix">
+          <a class="btn btn-primary float-right" href="#">Older Posts &rarr;</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
