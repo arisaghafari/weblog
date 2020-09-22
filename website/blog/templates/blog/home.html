@@ -9,7 +9,7 @@
       <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
           <div class="site-heading">
-            <h1>اوریفلیم پریسا</h1>
+            <h1 class="font-sahel">اوریفلیم پریسا</h1>
           </div>
         </div>
       </div>
@@ -22,16 +22,16 @@
           {% for article in articles %}
               <div class="post-preview">
                 <a href="{% url 'blog:detailArticle' article.slug %}">
-                    <h2 class="post-title">
+                    <h2 class="post-title font-sahel">
                      {{ article.title }}
                     </h2>
-                    <h3 class="post-subtitle">
+                    <h3 class="post-subtitle font-sahel">
                      {{ article.description | truncatewords:30}}
                     </h3>
                 </a>
-                <p class="post-meta">نوشته شده توسط آریسا
+                <p class="post-meta font-sahel">نوشته شده توسط آریسا
                 {{ article.jpublish }}</p>
-                <div>
+                <div class="font-sahel">
                     {% for category in article.category.all %}
                         <a href = "#"> #{{ category.title }}</a>
                     {% endfor %}
@@ -40,8 +40,8 @@
             <hr>
           {% endfor %}
         <!-- Pager -->
-        <div class="clearfix">
-          <a class="btn btn-primary float-right" href="#">Older Posts &rarr;</a>
+        <div class="clearfix pager_botton">
+          <a class="btn btn-primary float-right" href="#">پست های قدیمی &larr;</a>
         </div>
       </div>
     </div>
