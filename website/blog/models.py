@@ -2,6 +2,10 @@ from django.db import models
 from django.utils import timezone
 from extensions.utils import jalali_converter
 
+class ArticleManager(models.Manager):
+    def published(self):
+        return self.filter(status = 'p')
+
 class Category(models.Model):
     title = models.CharField(max_length=200, verbose_name="عنوان دسته بندی")
     slug = models.SlugField(max_length=200, unique=True, verbose_name="ادرس دسته بندی")
@@ -29,7 +33,7 @@ class Article(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     status = models.CharField(max_length=1, choices=STATU_CHOICES, verbose_name="وضعیت")
-    category = models.ManyToManyField(Category, verbose_name="دسته بندی")
+    category = models.ManyToManyField(Category, verbose_name="دسته بندی", related_name="article")
     class Meta:
         verbose_name = "مقاله"
         verbose_name_plural = "مقالات"
@@ -42,3 +46,7 @@ class Article(models.Model):
     def __str__(self):
         return self.title
 
+    def category_published(self):
+        return self.category.filter(status=True)
+
+    objects = ArticleManager()
