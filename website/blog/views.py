@@ -18,8 +18,14 @@ def detailArticle(request, slug):
     }
     return render(request, "blog/detailArticle.html", context)
 
-def categoryArticle(request, slug):
+def categoryArticle(request, slug, page=1):
+    category = get_object_or_404(Category, slug=slug, status=True)
+    articlesList = category.article.published()
+    paginator = Paginator(articlesList, 3)
+    #page = request.GET.get("page")
+    articles = paginator.get_page(page)
     context = {
-        "category": get_object_or_404(Category, slug=slug, status=True)
+        "category": category,
+        "articles": articles
     }
     return render(request,"blog/categoryArticle.html", context)
